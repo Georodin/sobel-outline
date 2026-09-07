@@ -11,9 +11,10 @@ Shader "Hidden/Cubus/SobelCoverage"
         Pass
         {
             Name "Coverage"
-            ZWrite Off
-            ZTest Always
-            Cull Back
+            ZWrite On
+            ZTest LEqual
+            Cull Off
+            Offset -1, -1
             Blend Off
 
             HLSLPROGRAM
@@ -47,6 +48,34 @@ Shader "Hidden/Cubus/SobelCoverage"
             {
                 float3 normal = normalize(input.normalWS);
                 return float4(normal * 0.5 + 0.5, 1.0);
+            }
+            ENDHLSL
+        }
+
+        Pass
+        {
+            Name "CopySceneDepth"
+            ZWrite On
+            ZTest Always
+            Cull Off
+            ColorMask 0
+            Blend Off
+
+            HLSLPROGRAM
+            #pragma vertex Vert
+            #pragma fragment Frag
+            #pragma target 3.5
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
+
+            TEXTURE2D_X_FLOAT(_SobelSceneDepthTex);
+
+            float Frag(Varyings input, out float outDepth : SV_Depth) : SV_Target
+            {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                outDepth = SAMPLE_TEXTURE2D_X(_SobelSceneDepthTex, sampler_PointClamp, input.texcoord).r;
+                return 0;
             }
             ENDHLSL
         }
