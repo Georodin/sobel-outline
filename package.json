@@ -1,0 +1,23 @@
+{
+  "name": "com.georodin.sobel-outline",
+  "version": "1.0.0",
+  "displayName": "Sobel Outline",
+  "description": "URP fullscreen Sobel outline with a per-object include component. Invisible objects can still contribute silhouettes via the Sobel Transparent material.",
+  "unity": "6000.3",
+  "documentationUrl": "",
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "keywords": [
+    "urp",
+    "sobel",
+    "outline",
+    "post-processing"
+  ],
+  "author": {
+    "name": "Georodin",
+    "url": "https://github.com/Georodin"
+  },
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "17.3.0"
+  }
+}

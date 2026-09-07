@@ -1,0 +1,5 @@
+# Ignore editor junk if this folder is used as its own git repo.
+*.csproj
+*.sln
+.DS_Store
+Thumbs.db
